@@ -1,51 +1,31 @@
 require "spec_helper"
 
 describe Sensor do
-  subject { described_class.new(name: name, type: type) }
+  subject { described_class.new(name: name) }
 
   let(:name) { "temp-1" }
-  let(:type) { "thermometer" }
 
   describe ".new" do
     it "creates a new Sensor instance" do
       expect(subject).not_to be_nil
     end
 
-    context "when given name" do
-      context "is nil" do
-        let(:name) { nil }
-        it { expect { subject }.to raise_error(ArgumentError) }
-      end
+    context "when name argument is nil" do
+      let(:name) { nil }
 
-      context "is blank" do
-        let(:name) { "" }
-        it { expect { subject }.to raise_error(ArgumentError) }
-      end
+      it { expect { subject }.to raise_error(ArgumentError) }
     end
 
-    context "when given type" do
-      context "is nil" do
-        let(:type) { nil }
-        it { expect { subject }.to raise_error(ArgumentError) }
-      end
+    context "when name argument is an empty string" do
+      let(:name) { "" }
 
-      context "is unknown (not in Sensor::TYPES)" do
-        let(:type) { "not_a_known_type" }
-        it { expect { subject }.to raise_error(ArgumentError) }
-        it { expect(Sensor::TYPES).not_to include(type) }
-      end
+      it { expect { subject }.to raise_error(ArgumentError) }
     end
   end
 
   describe "#name" do
     it "returns the name" do
       expect(subject.name).to eq name
-    end
-  end
-
-  describe "#type" do
-    it "returns the type" do
-      expect(subject.type).to eq type
     end
   end
 

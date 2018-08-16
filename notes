@@ -70,3 +70,15 @@ you think would make sense to improve the process (split into multiple files,
 change log format, change the interface of the class, etc).
 
 For example, one of the future plans that 37Widgets has is to make more IoT devices.
+
+
+Thoughts on changes
+
+1. Configure the reference data separate from the log
+   Having the first line denote the proper quality control values means that line
+   means something different than every other data item in the log
+2. Have a log file per sensor
+   Similarly, there are two types of data items in the log
+     a) something that describes the sensor and
+     b) readings for that sensor
+   Each sensor should be related to it's own readings

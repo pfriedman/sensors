@@ -10,14 +10,12 @@ class LogReader
 
   def read
     sensor = nil
-    data.each do |d|
-      values = d.split
-      if sensor_data?(values)
-        sensor = Sensor.new(name: values[1], type: values[0])
-        sensors << sensor
+    @data.each do |log_item|
+      log_values = log_item.split
+      if sensor_data?(log_values)
+        sensor = create_sensor(log_values)
       else
-        reading = Reading.new(value: Float(values[1]), timestamp: Time.parse(values[0]))
-        sensor.readings << reading
+        create_reading(log_values, sensor)
       end
     end
   end
@@ -32,7 +30,7 @@ class LogReader
   def set_reference
     extract_reference_data
     values = reference_data.split
-    @reference = Reference.new(temperature: Float(values[1]), humidity: Float(values[2]))
+    @reference = Reference.new(thermometer: Float(values[1]), humidity: Float(values[2]))
   end
 
   def extract_reference_data
@@ -41,6 +39,28 @@ class LogReader
 
   def sensor_data?(values)
     Sensor::TYPES.include? values[0]
+  end
+
+  def create_sensor(log_values)
+    type = log_values[0]
+    sensor = determine_class(type).new(name: log_values[1], target: target(type))
+    sensors << sensor
+    sensor
+  end
+
+  def determine_class(name)
+    Kernel.const_get(name.capitalize)
+  end
+
+  def create_reading(log_values, sensor)
+    reading = Reading.new(value: Float(log_values[1]), timestamp: Time.parse(log_values[0]))
+    sensor.readings << reading
+  end
+
+  # The log reader gets the target value for the controlled
+  #
+  def target(type)
+    reference.send(type)
   end
 
 end

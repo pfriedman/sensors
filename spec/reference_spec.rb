@@ -1,9 +1,9 @@
 require "spec_helper"
 
 describe Reference do
-  subject { described_class.new(temperature: temperature, humidity: humidity) }
+  subject { described_class.new(thermometer: thermometer, humidity: humidity) }
 
-  let(:temperature) { 1.0 }
+  let(:thermometer) { 1.0 }
   let(:humidity) { 1.0 }
 
   describe ".new" do
@@ -11,24 +11,24 @@ describe Reference do
       expect(subject).not_to be_nil
     end
 
-    context "when given temperature" do
+    context "when given thermometer" do
       context "is nil" do
-        let(:temperature) { nil }
+        let(:thermometer) { nil }
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is not a Float" do
-        let(:temperature) { 1 }
+        let(:thermometer) { 1 }
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is zero" do
-        let(:temperature) { 0.0 }
+        let(:thermometer) { 0.0 }
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is less than zero" do
-        let(:temperature) { -1.0 }
+        let(:thermometer) { -1.0 }
         it { expect { subject }.to raise_error(ArgumentError) }
       end
     end
@@ -56,9 +56,9 @@ describe Reference do
     end
   end
 
-  describe "#temperature" do
-    it "returns the temperature" do
-      expect(subject.temperature).to eq temperature
+  describe "#thermometer" do
+    it "returns the thermometer" do
+      expect(subject.thermometer).to eq thermometer
     end
   end
 

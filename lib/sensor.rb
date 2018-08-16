@@ -4,23 +4,13 @@ class Sensor
   THERMOMETER = "thermometer".freeze
   TYPES = [ HUMIDITY, THERMOMETER ]
 
-  attr_reader :name, :type
+  attr_reader :name
   attr_accessor :readings
 
-  def initialize(name:, type:)
+  def initialize(name:)
     @name = name
-    @type = type
-    @readings = Array.new
-    raise ArgumentError unless given_valid_arguments?
-  end
-
-  private
-
-  def given_valid_arguments?
-    return false if name.nil?
-    return false unless name.length > 0
-    return false unless TYPES.include?(type)
-    true
+    @readings = []
+    raise ArgumentError if name.nil? || name.length <= 0
   end
 
 end
