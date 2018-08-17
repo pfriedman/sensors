@@ -6,6 +6,7 @@ class Humidity < Sensor
 
   # For a humidity sensor, it must be discarded unless it is
   # within 1% of the reference value for all readings.
+  #
   # @return [String] "keep" or "discard"
   def quality
     within_range? ? KEEP : DISCARD

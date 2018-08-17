@@ -2,12 +2,15 @@ class LogReader
 
   attr_reader :data, :sensors, :reference, :reference_data
 
+  # Data expected is in the log file format as described in notes
+  # @param[String] data
   def initialize(data:)
     @data = data.to_s.split("\n")
     @sensors = []
     set_reference
   end
 
+  # Reads the log and sets the Reference and Sensors with Readings
   def read
     sensor = nil
     @data.each do |log_item|
@@ -57,8 +60,6 @@ class LogReader
     sensor.readings << reading
   end
 
-  # The log reader gets the target value for the controlled
-  #
   def target(type)
     reference.send(type)
   end

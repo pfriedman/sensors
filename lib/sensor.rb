@@ -2,11 +2,13 @@ class Sensor
 
   HUMIDITY = "humidity".freeze
   THERMOMETER = "thermometer".freeze
-  TYPES = [ HUMIDITY, THERMOMETER ].freeze
+  TYPES = [HUMIDITY, THERMOMETER].freeze
 
   attr_reader :name, :target
   attr_accessor :readings
 
+  # @param[String] name - the name of the sensor
+  # @param[Float] target - the number used to determine quality
   def initialize(name:, target:)
     @name = name
     @target = target
@@ -19,10 +21,12 @@ class Sensor
     nil
   end
 
+  # @return[Float] - the mean of the Readings.value
   def mean
     @mean ||= reading_values.sum / reading_values.length.to_f
   end
 
+  # @return[Float] - the standard deviation of the Readings.value
   def standard_deviation
     @standard_deviation ||= Math.sqrt(sample_variance)
   end

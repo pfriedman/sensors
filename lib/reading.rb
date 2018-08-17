@@ -4,6 +4,8 @@ class Reading
 
   attr_reader :value, :timestamp
 
+  # @param [Float] value
+  # @param [Time] timestamp
   def initialize(value:, timestamp:)
     @value = value
     @timestamp = timestamp
