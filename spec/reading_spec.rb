@@ -14,21 +14,25 @@ describe Reading do
     context "when given value" do
       context "is nil" do
         let(:value) { nil }
+
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is not a Float" do
         let(:value) { 1 }
+
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is zero" do
         let(:value) { 0.0 }
+
         it { expect { subject }.to raise_error(ArgumentError) }
       end
 
       context "is less than zero" do
         let(:value) { -1.0 }
+
         it { expect { subject }.to raise_error(ArgumentError) }
       end
     end
@@ -36,6 +40,7 @@ describe Reading do
     context "when given timestamp" do
       context "is nil" do
         let(:timestamp) { nil }
+
         it { expect { subject }.to raise_error(ArgumentError) }
       end
     end

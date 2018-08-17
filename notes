@@ -7,7 +7,7 @@ but the sensors are expected to fluctuate a bit.
 As a developer, your task is to process the logs and automate the quality control
 evaluation. The evaluation criteria are as follows:
 
-1) For a thermometer, it is branded “ultraprecise” if the mean of the
+1) For a thermometer, it is branded “ultra precise” if the mean of the
    readings is within 0.5 degrees of the known temperature, and the
    standard deviation is less than 3. It is branded “very precise” if
    the mean is within 0.5 degrees of the room, and the standard deviation
@@ -72,7 +72,7 @@ change log format, change the interface of the class, etc).
 For example, one of the future plans that 37Widgets has is to make more IoT devices.
 
 
-Thoughts on changes
+Notes
 
 1. Configure the reference data separate from the log
    Having the first line denote the proper quality control values means that line
@@ -82,3 +82,17 @@ Thoughts on changes
      a) something that describes the sensor and
      b) readings for that sensor
    Each sensor should be related to it's own readings
+3. Configure the criteria for each sensor
+   The logic around the quality output should be configurable and specific
+   to each sensor type
+
+Thoughts on the design
+
+I named the sensors humidty and thermometer to match the sensor type in the log file.
+The values on the Reference class are named to match as well.
+The association between the sensor type with the top reference line will not scale well.
+Each time a new sensor is created we would need to add to the first line and add a new type
+(likely with a new manner in which to determine the quality.)
+
+This coupling and indirect naming of the association between the reference line and the sensor type
+is certainly a something to address.
